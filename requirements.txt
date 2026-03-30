@@ -1,0 +1,34 @@
+# Core RL
+gymnasium>=0.29.1
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Vision Transformers
+timm>=0.9.0
+transformers>=4.30.0
+
+# Text Processing
+tokenizers>=0.15.0
+
+# Utilities
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+tensorboard>=2.15.0
+pyyaml>=6.0.0
+tqdm>=4.66.0
+opencv-python>=4.8.0
+pillow>=10.0.0
+
+# Experiment Management
+wandb>=0.16.0
+
+# Statistical Analysis
+scipy>=1.11.0
+
+# Testing
+pytest>=7.4.0
+
+# Atari (install separately - see WINDOWS_SETUP.md if issues)
+# ale-py>=0.9.0  # Uncomment when Python 3.11 or build tools installed

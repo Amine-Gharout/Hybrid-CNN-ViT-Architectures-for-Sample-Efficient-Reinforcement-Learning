@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+.env
+.venv
+.venv-1
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+vit_rl_env/
+
+# Results and logs
+results/
+logs/
+*.log
+*.log.*
+*.txt
+!requirements.txt
+
+# Archive
+archive/
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs_vista.db
+*.stackdump
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+tmp*/
+*test_results*/
+*.json
+*.bat
+*.aux
+*.pdf
+*.log
+*.fls
+*.out
+*.fdb_latexmk
+*.synctex.gz

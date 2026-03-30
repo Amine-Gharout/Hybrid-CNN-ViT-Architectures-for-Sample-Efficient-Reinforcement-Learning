@@ -1,0 +1,106 @@
+# Baseline conditions
+conditions:
+  # 1. Vision-only (ViT)
+  vit_only:
+    name: "ViT-Only"
+    vision_encoder: "vit_base_patch16_224"
+    use_text: false
+    pretrained: true
+    freeze_vit_layers: 8
+    
+  # 2. ViT + Random Text (control)
+  vit_random_text:
+    name: "ViT+RandomText"
+    vision_encoder: "vit_base_patch16_224"
+    use_text: true
+    text_random: true
+    fusion_type: "concat"
+    
+  # 3. ViT + True Temporal Text (main method)
+  vit_text_detailed:
+    name: "ViT+Text-Detailed"
+    vision_encoder: "vit_base_patch16_224"
+    use_text: true
+    text_random: false
+    text_style: "detailed"
+    fusion_type: "concat"
+    history_length: 5
+    
+  # 4. ViT + Text with Cross-Attention
+  vit_text_crossattn:
+    name: "ViT+Text-CrossAttn"
+    vision_encoder: "vit_base_patch16_224"
+    use_text: true
+    fusion_type: "cross_attention"
+    text_style: "detailed"
+    history_length: 5
+    
+  # 5. ViT + Text with Gated Fusion
+  vit_text_gated:
+    name: "ViT+Text-Gated"
+    vision_encoder: "vit_base_patch16_224"
+    use_text: true
+    fusion_type: "gated"
+    text_style: "detailed"
+    history_length: 5
+
+# Training configuration
+training:
+  total_timesteps: 10000000
+  num_envs: 8
+  num_steps: 128
+  num_epochs: 4
+  batch_size: 256
+  minibatch_size: 64
+  
+  # Optimizer
+  learning_rate: 0.0003
+  lr_schedule: "linear"
+  adam_epsilon: 0.00001
+  max_grad_norm: 0.5
+  
+  # PPO hyperparameters
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_coef: 0.1
+  ent_coef: 0.01
+  vf_coef: 0.5
+  
+  # Logging
+  log_interval: 10
+  save_interval: 100
+  eval_interval: 50
+  eval_episodes: 10
+
+# Model configuration
+model:
+  vit_model: "vit_base_patch16_224"
+  text_model: "distilbert-base-uncased"
+  embedding_dim: 512
+  hidden_dim: 256
+  freeze_vit_layers: 8
+  freeze_text: true
+
+# Seeds for reproducibility
+seeds: [42, 123, 456, 789, 1024]
+
+# Environments
+environments:
+  pong: "PongNoFrameskip-v4"
+  breakout: "BreakoutNoFrameskip-v4"
+  space_invaders: "SpaceInvadersNoFrameskip-v4"
+  ms_pacman: "MsPacmanNoFrameskip-v4"
+
+# Robustness tests
+robustness_tests:
+  frame_skip:
+    skip_every: 3
+    
+  occlusion:
+    type: "random_patches"
+    num_patches: 5
+    patch_size: 32
+    
+  noise:
+    type: "gaussian"
+    std: 0.1

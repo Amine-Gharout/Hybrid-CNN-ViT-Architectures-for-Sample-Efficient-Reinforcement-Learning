@@ -1,0 +1,42 @@
+# Quick test configuration for CartPole
+conditions:
+  vit_only:
+    name: "MLP-Only"
+    use_text: false
+
+training:
+  total_timesteps: 50000  # Quick test
+  num_envs: 4
+  num_steps: 128
+  num_epochs: 4
+  batch_size: 128
+  minibatch_size: 32
+  
+  learning_rate: 0.0003
+  lr_schedule: "linear"
+  adam_epsilon: 0.00001
+  max_grad_norm: 0.5
+  
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_coef: 0.2
+  ent_coef: 0.01
+  vf_coef: 0.5
+  
+  log_interval: 10
+  save_interval: 100
+  eval_interval: 50
+  eval_episodes: 5
+
+model:
+  vit_model: "vit_base_patch16_224"
+  text_model: "distilbert-base-uncased"
+  embedding_dim: 512
+  hidden_dim: 256
+  freeze_vit_layers: 8
+  freeze_text: true
+
+seeds: [42]
+
+environments:
+  cartpole: "CartPole-v1"

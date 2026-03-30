@@ -1,0 +1,72 @@
+# ============================================================================
+# DQN Experiments Configuration
+# ============================================================================
+# Two conditions: ViT-only and Hybrid CNN-ViT (DQN with dueling architecture)
+
+training:
+  total_timesteps: 500_000
+  num_envs: 1                  # DQN uses single env + replay buffer
+  learning_rate: 1.0e-4
+  adam_epsilon: 1.0e-5
+  gamma: 0.99
+
+  # Replay buffer
+  replay_buffer_size: 100_000
+  batch_size: 32
+  learning_starts: 5_000       # random exploration before training begins
+  train_frequency: 4           # gradient step every N env steps
+
+  # Epsilon schedule (linear annealing)
+  eps_start: 1.0
+  eps_end: 0.01
+  eps_schedule_steps: 200_000
+
+  # Target network
+  target_update_frequency: 1_000   # hard-copy every N gradient steps
+  double_dqn: true
+
+  # Optimisation
+  max_grad_norm: 10.0
+
+  # Logging & checkpoints
+  log_interval: 500            # print every N env steps
+  save_interval_steps: 50_000  # checkpoint every N env steps
+
+model:
+  vit_model: "vit_tiny_patch16_224"
+  embedding_dim: 256
+  hidden_dim: 128
+  freeze_vit_layers: 10
+  hybrid_vit_model: "vit_tiny_patch16_224"
+
+conditions:
+  dqn_vit:
+    description: "DQN with Vision Transformer backbone"
+    vit_model: "vit_tiny_patch16_224"
+    pretrained: true
+    dueling: true
+    freeze_vit_layers: 10
+
+  dqn_hybrid:
+    description: "DQN with Hybrid CNN + ViT backbone (adaptive fusion)"
+    vit_model: "vit_tiny_patch16_224"
+    pretrained: true
+    dueling: true
+    freeze_vit_layers: 10
+
+seeds:
+  - 42
+  - 123
+  - 456
+  - 789
+  - 1024
+
+environments:
+  minatar:
+    - breakout
+    - space_invaders
+    - freeway
+  atari:
+    - BreakoutNoFrameskip-v4
+    - PongNoFrameskip-v4
+    - SpaceInvadersNoFrameskip-v4
